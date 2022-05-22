@@ -27,15 +27,16 @@ response = requests.post(url=app_end_point, headers=headers, json=app_parameters
 result = response.json()
 
 sheety_end_point = 'https://api.sheety.co/f266fc6da30b4c5d27abf38dbec08fea/myWorkout/workouts'
+headers = {'Authorization': 'Basic cGVhcmwxNzg6MTE3ODc4VGlhbg=='}
 for item in result['exercises']:
     sheety_parameters = {
         'workout': {
             'date': dt.datetime.now().strftime('%d/%m/%Y'),
             'time': dt.datetime.now().strftime('%X'),
-            'exercise': item['name'],
+            'exercise': item['name'].title(),
             'duration': item['duration_min'],
             'calories': item['nf_calories']
         }
     }
 
-    fill_form = requests.post(url=sheety_end_point, json=sheety_parameters)
+    fill_form = requests.post(url=sheety_end_point, headers=headers, json=sheety_parameters)
