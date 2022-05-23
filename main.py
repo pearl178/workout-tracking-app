@@ -2,13 +2,15 @@ import requests
 import datetime as dt
 import os
 
-APP_ID = 'b5db85a0'
-APP_KEY = 'd8d73229c36b6cdf5cb8ca55fa31d7bf'
+APP_ID # nutritionix api
+APP_KEY # nutritionix api
+SHEETY_END_POINT #sheeting api endpoint
+AUTH #sheeting api authentication
 
-GENDER = 'female'
-WEIGHT_KG = 55
-HEIGHT_CM = 165
-AGE = 25
+GENDER 
+WEIGHT_KG
+HEIGHT_CM
+AGE
 exercise_input = input("What exercise did you do today? ")
 
 app_end_point = 'https://trackapi.nutritionix.com/v2/natural/exercise'
@@ -27,8 +29,7 @@ app_parameters = {
 response = requests.post(url=app_end_point, headers=headers, json=app_parameters)
 result = response.json()
 
-sheety_end_point = 'https://api.sheety.co/f266fc6da30b4c5d27abf38dbec08fea/myWorkout/workouts'
-headers = {'Authorization': 'Basic cGVhcmwxNzg6MTE3ODc4VGlhbg=='}
+headers = {'Authorization': AUTH}
 for item in result['exercises']:
     sheety_parameters = {
         'workout': {
@@ -40,4 +41,4 @@ for item in result['exercises']:
         }
     }
 
-    fill_form = requests.post(url=sheety_end_point, headers=headers, json=sheety_parameters)
+    fill_form = requests.post(url=SHEETY_END_POINT, headers=headers, json=sheety_parameters)
